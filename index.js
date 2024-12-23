@@ -5,10 +5,10 @@ import mongoose from "mongoose";
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
-import authRoutes from './routes/authRoutes.js';
-import connectDB from './config/db.js';
-import wishlistRoutes from './routes/wishlistRoutes.js';
-import orderRoutes from './routes/orderRoutes.js';
+import authRoutes from "./routes/authRoutes.js";
+import connectDB from "./config/db.js";
+import wishlistRoutes from "./routes/wishlistRoutes.js";
+import orderRoutes from "./routes/orderRoutes.js";
 
 dotenv.config();
 
@@ -16,18 +16,21 @@ connectDB();
 
 const app = express();
 
-app.use(cors({
-  origin: (origin, callback) => {
-    const allowedOrigins = ['https://shopzonekunik.netlify.app'];
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-  credentials: true 
-}));
+app.use(
+  cors()
+  //   {
+  //   origin: (origin, callback) => {
+  //     const allowedOrigins = ['https://shopzonekunik.netlify.app'];
+  //     if (allowedOrigins.includes(origin)) {
+  //       callback(null, true);
+  //     } else {
+  //       callback(new Error('Not allowed by CORS'));
+  //     }
+  //   },
+  //   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  //   credentials: true
+  // }
+);
 
 app.use(express.json());
 
@@ -35,9 +38,9 @@ app.use(express.json());
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/cart", cartRoutes);
-app.use('/api/auth', authRoutes);
-app.use('/api/wishlist', wishlistRoutes);
-app.use('/api/orders', orderRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/wishlist", wishlistRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Connect to MongoDB
 const mongoUri = process.env.MONGODB_URI;
